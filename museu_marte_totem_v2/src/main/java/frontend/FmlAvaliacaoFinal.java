@@ -3,6 +3,7 @@ package frontend;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import pesquisa.EstatisticasSistema;
@@ -15,7 +16,7 @@ public class FmlAvaliacaoFinal extends JDialog {
 
     public FmlAvaliacaoFinal() {
         initComponents();
-        UtilTela.configurarDialogo(this, "Avaliacao Final", 420, 340);
+        UtilTela.configurarDialogo(this, "Avaliacao Final", 420, 360);
         setModal(true);
         configurarTela();
     }
@@ -70,7 +71,49 @@ public class FmlAvaliacaoFinal extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     protected void configurarTela() {
+        montarEstruturaAvaliacao();
         btnConcluir.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { concluirAvaliacao(); }});
+    }
+
+    protected void montarEstruturaAvaliacao() {
+        pnlConteudo.removeAll();
+        pnlConteudo.setLayout(new java.awt.BorderLayout(10, 10));
+        pnlConteudo.setBackground(new java.awt.Color(24, 24, 28));
+
+        pnlCentro = new javax.swing.JPanel(new java.awt.BorderLayout(10, 16));
+        pnlCentro.setOpaque(false);
+        pnlCentro.setBorder(BorderFactory.createEmptyBorder(24, 20, 12, 20));
+
+        pnlTextos = new javax.swing.JPanel(new java.awt.GridLayout(2, 1, 0, 6));
+        pnlTextos.setOpaque(false);
+        lblTitulo = new javax.swing.JLabel("Avalie a exposicao", javax.swing.SwingConstants.CENTER);
+        lblTitulo.setForeground(new java.awt.Color(245, 245, 245));
+        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 24));
+        lblSubtitulo = new javax.swing.JLabel("De uma nota geral de 1 a 5 estrelas", javax.swing.SwingConstants.CENTER);
+        lblSubtitulo.setForeground(new java.awt.Color(210, 210, 220));
+        lblSubtitulo.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        pnlTextos.add(lblTitulo);
+        pnlTextos.add(lblSubtitulo);
+        pnlCentro.add(pnlTextos, java.awt.BorderLayout.NORTH);
+
+        pnlEstrelas = new PainelEstrelas();
+        pnlCentro.add(pnlEstrelas, java.awt.BorderLayout.CENTER);
+        pnlConteudo.add(pnlCentro, java.awt.BorderLayout.CENTER);
+
+        pnlRodape = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 12));
+        pnlRodape.setOpaque(false);
+        btnConcluir = new javax.swing.JButton("Finalizar visita");
+        btnConcluir.setBackground(new java.awt.Color(255, 0, 15));
+        btnConcluir.setForeground(java.awt.Color.WHITE);
+        btnConcluir.setFont(new Font("SansSerif", Font.BOLD, 18));
+        btnConcluir.setFocusPainted(false);
+        btnConcluir.setBorder(BorderFactory.createEmptyBorder(12, 16, 12, 16));
+        btnConcluir.setPreferredSize(new java.awt.Dimension(320, 54));
+        pnlRodape.add(btnConcluir);
+        pnlConteudo.add(pnlRodape, java.awt.BorderLayout.SOUTH);
+
+        pnlConteudo.revalidate();
+        pnlConteudo.repaint();
     }
 
     protected void concluirAvaliacao() {

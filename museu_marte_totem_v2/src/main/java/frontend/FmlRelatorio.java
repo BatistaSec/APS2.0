@@ -85,8 +85,52 @@ public class FmlRelatorio extends JDialog {
     }
 
     protected void configurarTela() {
+        montarEstruturaRelatorio();
         btnAtualizar.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { atualizarRelatorio(); }});
         btnVoltar.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); }});
+    }
+
+    protected void montarEstruturaRelatorio() {
+        pnlConteudo.removeAll();
+        pnlConteudo.setLayout(new java.awt.BorderLayout(10, 10));
+        pnlConteudo.setBackground(new java.awt.Color(24, 24, 28));
+
+        pnlTopo = new javax.swing.JPanel(new java.awt.GridLayout(2, 1, 0, 4));
+        pnlTopo.setOpaque(false);
+        pnlTopo.setBorder(BorderFactory.createEmptyBorder(16, 16, 0, 16));
+        lblTitulo = new javax.swing.JLabel("Relatorio da Exposicao", javax.swing.SwingConstants.CENTER);
+        lblTitulo.setForeground(new java.awt.Color(245, 245, 245));
+        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 24));
+        lblSubtitulo = new javax.swing.JLabel("Dados salvos em arquivo local", javax.swing.SwingConstants.CENTER);
+        lblSubtitulo.setForeground(new java.awt.Color(210, 210, 220));
+        lblSubtitulo.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        pnlTopo.add(lblTitulo);
+        pnlTopo.add(lblSubtitulo);
+        pnlConteudo.add(pnlTopo, java.awt.BorderLayout.NORTH);
+
+        txtRelatorio = new javax.swing.JTextArea();
+        txtRelatorio.setEditable(false);
+        txtRelatorio.setBackground(new java.awt.Color(39, 39, 46));
+        txtRelatorio.setForeground(new java.awt.Color(245, 245, 245));
+        txtRelatorio.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        txtRelatorio.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+        scrollRelatorio = new javax.swing.JScrollPane(txtRelatorio);
+        scrollRelatorio.setBorder(BorderFactory.createEmptyBorder(8, 16, 8, 16));
+        scrollRelatorio.getViewport().setBackground(new java.awt.Color(24, 24, 28));
+        pnlConteudo.add(scrollRelatorio, java.awt.BorderLayout.CENTER);
+
+        pnlRodape = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
+        pnlRodape.setOpaque(false);
+        btnAtualizar = new javax.swing.JButton("Atualizar");
+        btnVoltar = new javax.swing.JButton("Voltar");
+        criarBotaoSecundario(btnAtualizar, "Atualizar");
+        criarBotaoSecundario(btnVoltar, "Voltar");
+        pnlRodape.add(btnAtualizar);
+        pnlRodape.add(btnVoltar);
+        pnlConteudo.add(pnlRodape, java.awt.BorderLayout.SOUTH);
+
+        pnlConteudo.revalidate();
+        pnlConteudo.repaint();
     }
 
     protected void atualizarRelatorio() {

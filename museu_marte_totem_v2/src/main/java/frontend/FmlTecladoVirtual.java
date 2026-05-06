@@ -3,6 +3,7 @@ package frontend;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
@@ -16,11 +17,10 @@ public class FmlTecladoVirtual extends JDialog {
 
     public FmlTecladoVirtual(String textoInicial) {
         initComponents();
-        UtilTela.configurarDialogo(this, "Teclado Virtual", 420, 560);
+        UtilTela.configurarDialogo(this, "Teclado Virtual", 430, 620);
         setModal(true);
         textoFinal = textoInicial;
         confirmado = false;
-        txtDigitacao.setText(textoFinal == null ? "" : textoFinal);
         configurarTela();
     }
 
@@ -81,25 +81,109 @@ public class FmlTecladoVirtual extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     protected void configurarTela() {
-        String[] letras = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-        for (String letra : letras) pnlTeclas.add(criarBotaoTecla(letra));
+        montarEstruturaTeclado();
+        adicionarLinhaTeclas("Q", "W", "E", "R", "T", "Y", "U");
+        adicionarLinhaTeclas("I", "O", "P", "A", "S", "D", "F");
+        adicionarLinhaTeclas("G", "H", "J", "K", "L", "Z", "X");
+        adicionarLinhaTeclas("C", "V", "B", "N", "M");
+        adicionarLinhaComandos();
+        btnCancelar.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); }});
+    }
+
+    protected void montarEstruturaTeclado() {
+        pnlConteudo.removeAll();
+        pnlConteudo.setLayout(new java.awt.BorderLayout(10, 10));
+        pnlConteudo.setBackground(new java.awt.Color(24, 24, 28));
+
+        pnlTopo = new javax.swing.JPanel(new java.awt.BorderLayout(0, 10));
+        pnlTopo.setOpaque(false);
+        pnlTopo.setBorder(BorderFactory.createEmptyBorder(16, 16, 4, 16));
+
+        lblTitulo = new javax.swing.JLabel("Teclado Virtual", javax.swing.SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 24));
+        lblTitulo.setForeground(new java.awt.Color(245, 245, 245));
+
+        lblInfo = new javax.swing.JLabel("Digite o nome do robo", javax.swing.SwingConstants.CENTER);
+        lblInfo.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        lblInfo.setForeground(new java.awt.Color(210, 210, 220));
+
+        pnlCabecalho = new javax.swing.JPanel(new java.awt.GridLayout(2, 1, 0, 4));
+        pnlCabecalho.setOpaque(false);
+        pnlCabecalho.add(lblTitulo);
+        pnlCabecalho.add(lblInfo);
+
+        txtDigitacao = new javax.swing.JTextField(textoFinal == null ? "" : textoFinal);
+        txtDigitacao.setEditable(false);
+        txtDigitacao.setFont(new Font("SansSerif", Font.BOLD, 20));
+        txtDigitacao.setBackground(new java.awt.Color(250, 250, 250));
+        txtDigitacao.setForeground(new java.awt.Color(30, 30, 35));
+        txtDigitacao.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
+
+        pnlTopo.add(pnlCabecalho, java.awt.BorderLayout.NORTH);
+        pnlTopo.add(txtDigitacao, java.awt.BorderLayout.SOUTH);
+        pnlConteudo.add(pnlTopo, java.awt.BorderLayout.NORTH);
+
+        pnlTeclas = new javax.swing.JPanel();
+        pnlTeclas.setLayout(new javax.swing.BoxLayout(pnlTeclas, javax.swing.BoxLayout.Y_AXIS));
+        pnlTeclas.setOpaque(false);
+        pnlTeclas.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        pnlConteudo.add(pnlTeclas, java.awt.BorderLayout.CENTER);
+
+        pnlRodape = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 8));
+        pnlRodape.setOpaque(false);
+        btnCancelar = new javax.swing.JButton("Cancelar");
+        estilizarBotaoTecla(btnCancelar, new java.awt.Color(72, 72, 84));
+        btnCancelar.setPreferredSize(new java.awt.Dimension(180, 44));
+        pnlRodape.add(btnCancelar);
+        pnlConteudo.add(pnlRodape, java.awt.BorderLayout.SOUTH);
+
+        pnlConteudo.revalidate();
+        pnlConteudo.repaint();
+    }
+
+    protected void adicionarLinhaTeclas(String... teclas) {
+        javax.swing.JPanel linha = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 4));
+        linha.setOpaque(false);
+        for (String tecla : teclas) {
+            JButton botao = criarBotaoTecla(tecla);
+            botao.setPreferredSize(new java.awt.Dimension(48, 42));
+            linha.add(botao);
+        }
+        pnlTeclas.add(linha);
+    }
+
+    protected void adicionarLinhaComandos() {
+        javax.swing.JPanel linha = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 6, 4));
+        linha.setOpaque(false);
         btnEspaco = criarBotaoTecla("ESPACO");
         btnApagar = criarBotaoTecla("APAGAR");
         btnLimpar = criarBotaoTecla("LIMPAR");
         btnConfirmar = criarBotaoTecla("OK");
-        pnlTeclas.add(btnEspaco);
-        pnlTeclas.add(btnApagar);
-        pnlTeclas.add(btnLimpar);
-        pnlTeclas.add(btnConfirmar);
-        btnCancelar.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); }});
+        btnEspaco.setPreferredSize(new java.awt.Dimension(100, 42));
+        btnApagar.setPreferredSize(new java.awt.Dimension(88, 42));
+        btnLimpar.setPreferredSize(new java.awt.Dimension(82, 42));
+        btnConfirmar.setPreferredSize(new java.awt.Dimension(70, 42));
+        linha.add(btnEspaco);
+        linha.add(btnApagar);
+        linha.add(btnLimpar);
+        linha.add(btnConfirmar);
+        pnlTeclas.add(linha);
     }
 
     protected JButton criarBotaoTecla(final String texto) {
         JButton botao = new JButton(texto);
-        botao.setFont(new Font("SansSerif", Font.BOLD, 16));
-        botao.setFocusPainted(false);
+        estilizarBotaoTecla(botao, "OK".equals(texto) ? new java.awt.Color(255, 0, 15) : new java.awt.Color(103, 100, 246));
         botao.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { tratarToqueTecla(texto); }});
         return botao;
+    }
+
+    protected void estilizarBotaoTecla(JButton botao, java.awt.Color cor) {
+        botao.setBackground(cor);
+        botao.setForeground(java.awt.Color.WHITE);
+        botao.setFont(new Font("SansSerif", Font.BOLD, 13));
+        botao.setFocusPainted(false);
+        botao.setBorder(BorderFactory.createEmptyBorder(8, 6, 8, 6));
+        botao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     }
 
     protected void tratarToqueTecla(String tecla) {

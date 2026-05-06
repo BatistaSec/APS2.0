@@ -11,6 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import models.RoboExplorador;
@@ -28,7 +30,7 @@ public class FmlDetalhesRobo extends JDialog {
         initComponents();
         this.robo = robo;
         this.indiceRobo = indiceRobo;
-        UtilTela.configurarDialogo(this, robo.getNome(), 430, 820);
+        UtilTela.configurarDialogo(this, robo.getNome(), 430, 760);
         setModal(true);
         configurarTela();
         carregarDadosRobo();
@@ -99,36 +101,126 @@ public class FmlDetalhesRobo extends JDialog {
     }
 
     protected void configurarTela() {
+        montarEstruturaDetalhes();
         scrollDetalhes.getVerticalScrollBar().setUnitIncrement(16);
+        scrollDetalhes.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         btnSalvarNota.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { salvarNota(); }});
         btnVoltar.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); }});
     }
 
+    protected void montarEstruturaDetalhes() {
+        pnlConteudo.removeAll();
+        pnlConteudo.setLayout(new java.awt.BorderLayout(0, 0));
+        pnlConteudo.setBackground(new java.awt.Color(24, 24, 28));
+
+        JPanel pnlCabecalho = new JPanel();
+        pnlCabecalho.setLayout(new javax.swing.BoxLayout(pnlCabecalho, javax.swing.BoxLayout.Y_AXIS));
+        pnlCabecalho.setBackground(new java.awt.Color(24, 24, 28));
+        pnlCabecalho.setBorder(BorderFactory.createEmptyBorder(16, 16, 10, 16));
+
+        lblTitulo = new JLabel("", SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 24));
+        lblTitulo.setForeground(new java.awt.Color(245, 245, 245));
+        lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblTitulo.setMaximumSize(new Dimension(360, 34));
+
+        lblImagem = new JLabel("Imagem ilustrativa", SwingConstants.CENTER);
+        lblImagem.setForeground(new java.awt.Color(210, 210, 220));
+        lblImagem.setOpaque(true);
+        lblImagem.setBackground(new java.awt.Color(39, 39, 46));
+        lblImagem.setPreferredSize(new Dimension(360, 170));
+        lblImagem.setMaximumSize(new Dimension(360, 170));
+        lblImagem.setMinimumSize(new Dimension(360, 170));
+        lblImagem.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblImagem.setBorder(BorderFactory.createLineBorder(new java.awt.Color(70, 70, 82)));
+
+        pnlCabecalho.add(lblTitulo);
+        pnlCabecalho.add(Box.createVerticalStrut(12));
+        pnlCabecalho.add(lblImagem);
+        pnlConteudo.add(pnlCabecalho, java.awt.BorderLayout.NORTH);
+
+        pnlPrincipal = new JPanel();
+        pnlPrincipal.setLayout(new javax.swing.BoxLayout(pnlPrincipal, javax.swing.BoxLayout.Y_AXIS));
+        pnlPrincipal.setBackground(new java.awt.Color(24, 24, 28));
+        pnlPrincipal.setBorder(BorderFactory.createEmptyBorder(10, 16, 10, 16));
+
+        scrollDetalhes = new JScrollPane(pnlPrincipal);
+        scrollDetalhes.setBorder(null);
+        scrollDetalhes.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollDetalhes.getViewport().setBackground(new java.awt.Color(24, 24, 28));
+        pnlConteudo.add(scrollDetalhes, java.awt.BorderLayout.CENTER);
+
+        JPanel pnlAvaliacao = new JPanel();
+        pnlAvaliacao.setLayout(new javax.swing.BoxLayout(pnlAvaliacao, javax.swing.BoxLayout.Y_AXIS));
+        pnlAvaliacao.setOpaque(true);
+        pnlAvaliacao.setBackground(new java.awt.Color(24, 24, 28));
+        pnlAvaliacao.setBorder(BorderFactory.createEmptyBorder(8, 16, 14, 16));
+
+        lblAvaliacao = new JLabel("Avalie este robo", SwingConstants.CENTER);
+        lblAvaliacao.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        lblAvaliacao.setForeground(new java.awt.Color(245, 245, 245));
+        lblAvaliacao.setAlignmentX(Component.CENTER_ALIGNMENT);
+        pnlEstrelas = new PainelEstrelas();
+        pnlEstrelas.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        pnlBotoes = new JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 6));
+        pnlBotoes.setOpaque(false);
+        btnSalvarNota = new javax.swing.JButton("Salvar nota");
+        btnVoltar = new javax.swing.JButton("Voltar");
+        criarBotaoSecundario(btnSalvarNota, "Salvar nota");
+        criarBotaoSecundario(btnVoltar, "Voltar");
+        pnlBotoes.add(btnSalvarNota);
+        pnlBotoes.add(btnVoltar);
+
+        pnlAvaliacao.add(lblAvaliacao);
+        pnlAvaliacao.add(Box.createVerticalStrut(6));
+        pnlAvaliacao.add(pnlEstrelas);
+        pnlAvaliacao.add(Box.createVerticalStrut(6));
+        pnlAvaliacao.add(pnlBotoes);
+        pnlConteudo.add(pnlAvaliacao, java.awt.BorderLayout.SOUTH);
+
+        pnlConteudo.revalidate();
+        pnlConteudo.repaint();
+    }
+
     protected void carregarDadosRobo() {
+        pnlPrincipal.removeAll();
         lblTitulo.setText(robo.getNome());
-        ImageIcon icone = UtilTela.carregarIcone(robo.getImagem(), 360, 190);
+        ImageIcon icone = UtilTela.carregarIcone(robo.getImagem(), 360, 170);
         if (icone != null) {
             lblImagem.setIcon(icone);
             lblImagem.setText("");
         }
-        int posicaoAvaliacao = pnlPrincipal.getComponentZOrder(lblAvaliacao);
-        posicaoAvaliacao = adicionarBlocoTexto(posicaoAvaliacao, "Nome do robo", robo.getNome());
-        posicaoAvaliacao = adicionarBlocoTexto(posicaoAvaliacao, "Dados de lancamento", robo.getDadosLancamento());
-        posicaoAvaliacao = adicionarBlocoTexto(posicaoAvaliacao, "Veiculo de lancamento", robo.getVeiculoLancamento());
-        posicaoAvaliacao = adicionarBlocoTexto(posicaoAvaliacao, "Local de lancamento", robo.getLocalLancamento());
-        posicaoAvaliacao = adicionarBlocoTexto(posicaoAvaliacao, "Entrada em orbita de Marte", robo.getEntradaOrbitaMarte());
-        posicaoAvaliacao = adicionarBlocoTexto(posicaoAvaliacao, "Dados de aterrissagem em Marte", robo.getDadosAterrissagem());
-        posicaoAvaliacao = adicionarBlocoTexto(posicaoAvaliacao, "Local de pouso", robo.getLocalPouso());
-        posicaoAvaliacao = adicionarBlocoTexto(posicaoAvaliacao, "Plataforma", robo.getPlataforma());
-        posicaoAvaliacao = adicionarBlocoTexto(posicaoAvaliacao, "Curiosidades", robo.getCuriosidades());
-        adicionarBlocoTexto(posicaoAvaliacao, "Descricao historica", robo.getDescricaoHistorica());
+
+        adicionarBlocoTexto("Nome do robo", robo.getNome());
+        adicionarBlocoTexto("Dados de lancamento", robo.getDadosLancamento());
+        adicionarBlocoTexto("Veiculo de lancamento", robo.getVeiculoLancamento());
+        adicionarBlocoTexto("Local de lancamento", robo.getLocalLancamento());
+        adicionarBlocoTexto("Entrada em orbita de Marte", robo.getEntradaOrbitaMarte());
+        adicionarBlocoTexto("Dados de aterrissagem em Marte", robo.getDadosAterrissagem());
+        adicionarBlocoTexto("Local de pouso", robo.getLocalPouso());
+        adicionarBlocoTexto("Plataforma", robo.getPlataforma());
+        adicionarBlocoTexto("Curiosidades", robo.getCuriosidades());
+        adicionarBlocoTexto("Descricao historica", robo.getDescricaoHistorica());
+        pnlPrincipal.revalidate();
+        pnlPrincipal.repaint();
     }
 
-    protected int adicionarBlocoTexto(int indice, String titulo, String conteudo) {
+    protected void adicionarBlocoTexto(String titulo, String conteudo) {
+        JPanel pnlBloco = new JPanel();
+        pnlBloco.setLayout(new javax.swing.BoxLayout(pnlBloco, javax.swing.BoxLayout.Y_AXIS));
+        pnlBloco.setBackground(new java.awt.Color(39, 39, 46));
+        pnlBloco.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new java.awt.Color(70, 70, 82)),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        pnlBloco.setAlignmentX(Component.CENTER_ALIGNMENT);
+        pnlBloco.setMaximumSize(new Dimension(360, 220));
+
         JLabel lblTituloCampo = new JLabel(titulo);
         lblTituloCampo.setForeground(UtilTela.COR_PRIMARIA);
         lblTituloCampo.setFont(new Font("SansSerif", Font.BOLD, 16));
         lblTituloCampo.setAlignmentX(Component.LEFT_ALIGNMENT);
+
         JTextArea txtConteudo = new JTextArea(conteudo);
         txtConteudo.setLineWrap(true);
         txtConteudo.setWrapStyleWord(true);
@@ -137,14 +229,23 @@ public class FmlDetalhesRobo extends JDialog {
         txtConteudo.setBackground(new java.awt.Color(39, 39, 46));
         txtConteudo.setForeground(new java.awt.Color(245, 245, 245));
         txtConteudo.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        txtConteudo.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
-        txtConteudo.setMaximumSize(new Dimension(360, 200));
+        txtConteudo.setBorder(BorderFactory.createEmptyBorder(6, 0, 0, 0));
+        txtConteudo.setRows(calcularLinhas(conteudo));
+        txtConteudo.setMaximumSize(new Dimension(338, 150));
         txtConteudo.setAlignmentX(Component.LEFT_ALIGNMENT);
-        pnlPrincipal.add(Box.createVerticalStrut(10), indice++);
-        pnlPrincipal.add(lblTituloCampo, indice++);
-        pnlPrincipal.add(Box.createVerticalStrut(4), indice++);
-        pnlPrincipal.add(txtConteudo, indice);
-        return indice + 1;
+
+        pnlBloco.add(lblTituloCampo);
+        pnlBloco.add(txtConteudo);
+        pnlPrincipal.add(pnlBloco);
+        pnlPrincipal.add(Box.createVerticalStrut(10));
+    }
+
+    protected int calcularLinhas(String texto) {
+        if (texto == null || texto.trim().isEmpty()) {
+            return 2;
+        }
+        int linhas = (texto.length() / 48) + 1;
+        return Math.max(2, Math.min(6, linhas));
     }
 
     protected void salvarNota() {

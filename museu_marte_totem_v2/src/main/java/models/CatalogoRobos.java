@@ -65,7 +65,7 @@ public class CatalogoRobos {
         listaRobos.add(new RoboExplorador(
                 3,
                 "Opportunity",
-                "/imagens/opportunity.png",
+                "/imagens/opportunity1.png",
                 "Lançamento em 07/07/2003 pela missão Mars Exploration Rover-B.",
                 "Delta II Heavy 7925",
                 "Cape Canaveral, Flórida, EUA.",

@@ -10,6 +10,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import pesquisa.CatalogoPerguntas;
 import pesquisa.EstatisticasSistema;
 import pesquisa.Pergunta;
@@ -135,9 +136,97 @@ public class FmlQuestionario extends JDialog {
     }
 
     protected void configurarTela() {
+        montarEstruturaQuestionario();
         rdbOpcoes = new JRadioButton[] {rdbOpcao1, rdbOpcao2, rdbOpcao3, rdbOpcao4};
         btnAnterior.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { voltarPergunta(); }});
         btnProximo.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { avancarOuFinalizar(); }});
+    }
+
+    protected void montarEstruturaQuestionario() {
+        pnlConteudo.removeAll();
+        pnlConteudo.setLayout(new java.awt.BorderLayout(10, 10));
+        pnlConteudo.setBackground(new java.awt.Color(24, 24, 28));
+
+        pnlTopo = new javax.swing.JPanel(new java.awt.GridLayout(2, 1, 0, 4));
+        pnlTopo.setOpaque(false);
+        pnlTopo.setBorder(BorderFactory.createEmptyBorder(16, 16, 0, 16));
+        lblTitulo = new javax.swing.JLabel("Quiz de Marte", javax.swing.SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 24));
+        lblTitulo.setForeground(new java.awt.Color(245, 245, 245));
+        lblProgresso = new javax.swing.JLabel("Pergunta 1", javax.swing.SwingConstants.CENTER);
+        lblProgresso.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        lblProgresso.setForeground(new java.awt.Color(210, 210, 220));
+        pnlTopo.add(lblTitulo);
+        pnlTopo.add(lblProgresso);
+        pnlConteudo.add(pnlTopo, java.awt.BorderLayout.NORTH);
+
+        pnlCentro = new javax.swing.JPanel(new java.awt.BorderLayout(10, 12));
+        pnlCentro.setOpaque(false);
+        pnlCentro.setBorder(BorderFactory.createEmptyBorder(8, 16, 8, 16));
+
+        txtPergunta = new javax.swing.JTextArea();
+        txtPergunta.setEditable(false);
+        txtPergunta.setFocusable(false);
+        txtPergunta.setLineWrap(true);
+        txtPergunta.setWrapStyleWord(true);
+        txtPergunta.setRows(4);
+        txtPergunta.setFont(new Font("SansSerif", Font.BOLD, 17));
+        txtPergunta.setBackground(new java.awt.Color(39, 39, 46));
+        txtPergunta.setForeground(new java.awt.Color(245, 245, 245));
+        txtPergunta.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+        JScrollPane scrollPergunta = new JScrollPane(txtPergunta);
+        scrollPergunta.setBorder(null);
+        scrollPergunta.setPreferredSize(new java.awt.Dimension(360, 130));
+        pnlCentro.add(scrollPergunta, java.awt.BorderLayout.NORTH);
+
+        grupoOpcoes = new ButtonGroup();
+        pnlOpcoes = new javax.swing.JPanel(new java.awt.GridLayout(4, 1, 0, 10));
+        pnlOpcoes.setOpaque(false);
+        rdbOpcao1 = criarOpcao();
+        rdbOpcao2 = criarOpcao();
+        rdbOpcao3 = criarOpcao();
+        rdbOpcao4 = criarOpcao();
+        pnlOpcoes.add(rdbOpcao1);
+        pnlOpcoes.add(rdbOpcao2);
+        pnlOpcoes.add(rdbOpcao3);
+        pnlOpcoes.add(rdbOpcao4);
+        pnlCentro.add(pnlOpcoes, java.awt.BorderLayout.CENTER);
+        pnlConteudo.add(pnlCentro, java.awt.BorderLayout.CENTER);
+
+        pnlRodape = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
+        pnlRodape.setOpaque(false);
+        btnAnterior = new javax.swing.JButton("Anterior");
+        btnProximo = new javax.swing.JButton("Proxima");
+        estilizarBotaoQuestionario(btnAnterior, new java.awt.Color(72, 72, 84));
+        estilizarBotaoQuestionario(btnProximo, new java.awt.Color(103, 100, 246));
+        pnlRodape.add(btnAnterior);
+        pnlRodape.add(btnProximo);
+        pnlConteudo.add(pnlRodape, java.awt.BorderLayout.SOUTH);
+
+        pnlConteudo.revalidate();
+        pnlConteudo.repaint();
+    }
+
+    protected JRadioButton criarOpcao() {
+        JRadioButton radio = new JRadioButton();
+        grupoOpcoes.add(radio);
+        radio.setBackground(new java.awt.Color(39, 39, 46));
+        radio.setForeground(new java.awt.Color(245, 245, 245));
+        radio.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        radio.setBorder(BorderFactory.createEmptyBorder(10, 12, 10, 12));
+        radio.setOpaque(true);
+        radio.setFocusPainted(false);
+        return radio;
+    }
+
+    protected void estilizarBotaoQuestionario(javax.swing.JButton botao, java.awt.Color cor) {
+        botao.setBackground(cor);
+        botao.setForeground(java.awt.Color.WHITE);
+        botao.setFont(new Font("SansSerif", Font.BOLD, 16));
+        botao.setBorder(BorderFactory.createEmptyBorder(10, 14, 10, 14));
+        botao.setFocusPainted(false);
+        botao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botao.setPreferredSize(new java.awt.Dimension(160, 46));
     }
 
     protected void carregarPerguntaAtual() {
