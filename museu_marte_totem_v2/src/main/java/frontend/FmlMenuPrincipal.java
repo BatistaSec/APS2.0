@@ -1,9 +1,7 @@
 package frontend;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,14 +10,10 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import models.CatalogoRobos;
 import models.RoboExplorador;
@@ -32,69 +26,171 @@ public class FmlMenuPrincipal extends JDialog {
 
     protected List<RoboExplorador> listaRobos;
 
-    protected JTextField txtBusca;
-    protected JButton btnTeclado;
-    protected JButton btnLimparBusca;
-    protected JPanel pnlListaRobos;
-    protected JButton btnQuestionario;
-    protected JButton btnRelatorio;
-    protected JButton btnSair;
-
     public FmlMenuPrincipal() {
+        initComponents();
         listaRobos = CatalogoRobos.getListaRobos();
         UtilTela.configurarDialogo(this, "Museu de Marte", 430, 820);
         setModal(true);
-        montarTela();
+        configurarTela();
         atualizarListaRobos("");
     }
 
-    protected void montarTela() {
-        setLayout(new BorderLayout(10, 10));
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-        JPanel pnlTopo = new JPanel();
-        pnlTopo.setOpaque(false);
-        pnlTopo.setLayout(new BoxLayout(pnlTopo, BoxLayout.Y_AXIS));
-        pnlTopo.setBorder(BorderFactory.createEmptyBorder(15, 15, 5, 15));
+        pnlConteudo = new javax.swing.JPanel();
+        pnlTopo = new javax.swing.JPanel();
+        lblTitulo = new javax.swing.JLabel();
+        lblSubtitulo = new javax.swing.JLabel();
+        lblInstrucao = new javax.swing.JLabel();
+        pnlBusca = new javax.swing.JPanel();
+        txtBusca = new javax.swing.JTextField();
+        btnTeclado = new javax.swing.JButton();
+        btnLimparBusca = new javax.swing.JButton();
+        scrollRobos = new javax.swing.JScrollPane();
+        pnlListaRobos = new javax.swing.JPanel();
+        pnlRodape = new javax.swing.JPanel();
+        btnQuestionario = new javax.swing.JButton();
+        btnRelatorio = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
 
-        JLabel lblTitulo = UtilTela.criarTitulo("Museu Multitemático");
-        JLabel lblSubtitulo = UtilTela.criarSubtitulo("Totem de Robôs Exploradores de Marte");
-        JLabel lblInstrucao = new JLabel("Toque em um cartão para abrir a página do robô.", SwingConstants.CENTER);
-        lblInstrucao.setForeground(UtilTela.COR_TEXTO);
-        lblInstrucao.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        lblInstrucao.setAlignmentX(Component.CENTER_ALIGNMENT);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        pnlConteudo.setLayout(new java.awt.BorderLayout(10, 10));
+
+        pnlTopo.setLayout(new java.awt.GridLayout(4, 1));
+
+        lblTitulo.setFont(new java.awt.Font("SansSerif", 1, 26)); // NOI18N
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Museu Multitematico");
         pnlTopo.add(lblTitulo);
-        pnlTopo.add(Box.createVerticalStrut(4));
+
+        lblSubtitulo.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        lblSubtitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSubtitulo.setText("Totem de Robos Exploradores de Marte");
         pnlTopo.add(lblSubtitulo);
-        pnlTopo.add(Box.createVerticalStrut(8));
+
+        lblInstrucao.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        lblInstrucao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblInstrucao.setText("Toque em um cartao para abrir a pagina do robo.");
         pnlTopo.add(lblInstrucao);
-        pnlTopo.add(Box.createVerticalStrut(12));
 
-        JPanel pnlBusca = new JPanel(new FlowLayout(FlowLayout.CENTER, 8, 0));
-        pnlBusca.setOpaque(false);
+        txtBusca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscaActionPerformed(evt);
+            }
+        });
+        pnlBusca.add(txtBusca);
 
-        txtBusca = new JTextField(16);
-        txtBusca.setEditable(false);
-        txtBusca.setFont(new Font("SansSerif", Font.BOLD, 16));
-        txtBusca.setPreferredSize(new Dimension(180, 38));
-        txtBusca.setToolTipText("Toque para usar o teclado virtual");
+        btnTeclado.setText("Teclado");
+        btnTeclado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTecladoActionPerformed(evt);
+            }
+        });
+        pnlBusca.add(btnTeclado);
+
+        btnLimparBusca.setText("Limpar");
+        btnLimparBusca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparBuscaActionPerformed(evt);
+            }
+        });
+        pnlBusca.add(btnLimparBusca);
+
+        pnlTopo.add(pnlBusca);
+
+        pnlConteudo.add(pnlTopo, java.awt.BorderLayout.NORTH);
+
+        scrollRobos.setViewportView(pnlListaRobos);
+
+        pnlConteudo.add(scrollRobos, java.awt.BorderLayout.CENTER);
+
+        pnlRodape.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
+
+        btnQuestionario.setText("Responder questionario");
+        btnQuestionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuestionarioActionPerformed(evt);
+            }
+        });
+        pnlRodape.add(btnQuestionario);
+
+        btnRelatorio.setText("Ver relatorio estatistico");
+        btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRelatorioActionPerformed(evt);
+            }
+        });
+        pnlRodape.add(btnRelatorio);
+
+        btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+        pnlRodape.add(btnSair);
+
+        pnlConteudo.add(pnlRodape, java.awt.BorderLayout.SOUTH);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlConteudo, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlConteudo, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnTecladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecladoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTecladoActionPerformed
+
+    private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscaActionPerformed
+
+    private void btnLimparBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparBuscaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimparBuscaActionPerformed
+
+    private void btnQuestionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuestionarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnQuestionarioActionPerformed
+
+    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRelatorioActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    protected void configurarTela() {
+        aplicarEstiloPrincipal();
+        scrollRobos.getVerticalScrollBar().setUnitIncrement(16);
+        scrollRobos.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        pnlListaRobos.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
+        pnlListaRobos.setLayout(new javax.swing.BoxLayout(pnlListaRobos, javax.swing.BoxLayout.Y_AXIS));
         txtBusca.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 abrirTecladoVirtual();
             }
         });
-
-        btnTeclado = UtilTela.criarBotaoSecundario("Teclado");
-        btnLimparBusca = UtilTela.criarBotaoSecundario("Limpar");
-
         btnTeclado.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 abrirTecladoVirtual();
             }
         });
-
         btnLimparBusca.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -102,72 +198,85 @@ public class FmlMenuPrincipal extends JDialog {
                 atualizarListaRobos("");
             }
         });
-
-        pnlBusca.add(txtBusca);
-        pnlBusca.add(btnTeclado);
-        pnlBusca.add(btnLimparBusca);
-        pnlTopo.add(pnlBusca);
-
-        add(pnlTopo, BorderLayout.NORTH);
-
-        pnlListaRobos = new JPanel();
-        pnlListaRobos.setOpaque(false);
-        pnlListaRobos.setLayout(new BoxLayout(pnlListaRobos, BoxLayout.Y_AXIS));
-        pnlListaRobos.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
-
-        JScrollPane scroll = new JScrollPane(pnlListaRobos);
-        scroll.setBorder(null);
-        scroll.getVerticalScrollBar().setUnitIncrement(16);
-        add(scroll, BorderLayout.CENTER);
-
-        JPanel pnlRodape = new JPanel();
-        pnlRodape.setOpaque(false);
-        pnlRodape.setLayout(new BoxLayout(pnlRodape, BoxLayout.Y_AXIS));
-        pnlRodape.setBorder(BorderFactory.createEmptyBorder(5, 15, 15, 15));
-
-        btnQuestionario = UtilTela.criarBotaoGrande("Responder questionário");
-        btnRelatorio = UtilTela.criarBotaoGrande("Ver relatório estatístico");
-        btnSair = UtilTela.criarBotaoGrande("Sair");
-
-        btnQuestionario.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnRelatorio.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnSair.setAlignmentX(Component.CENTER_ALIGNMENT);
-
         btnQuestionario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 abrirQuestionario();
             }
         });
-
         btnRelatorio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 abrirRelatorio();
             }
         });
-
         btnSair.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sairSistema();
             }
         });
+    }
 
-        pnlRodape.add(btnQuestionario);
-        pnlRodape.add(Box.createVerticalStrut(8));
-        pnlRodape.add(btnRelatorio);
-        pnlRodape.add(Box.createVerticalStrut(8));
-        pnlRodape.add(btnSair);
+    protected void aplicarEstiloPrincipal() {
+        pnlConteudo.setBackground(new java.awt.Color(24, 24, 28));
 
-        add(pnlRodape, BorderLayout.SOUTH);
+        pnlTopo.setBackground(new java.awt.Color(39, 39, 46));
+        pnlTopo.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createEmptyBorder(14, 14, 8, 14),
+                BorderFactory.createEmptyBorder(14, 14, 14, 14)));
+        pnlTopo.setOpaque(true);
+
+        lblTitulo.setText("Museu de Marte");
+        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblTitulo.setForeground(new java.awt.Color(245, 245, 245));
+
+        lblSubtitulo.setText("Totem dos Robos Exploradores");
+        lblSubtitulo.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        lblSubtitulo.setForeground(new java.awt.Color(210, 210, 220));
+
+        lblInstrucao.setText("Pesquise ou toque em um cartao para ver os detalhes.");
+        lblInstrucao.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        lblInstrucao.setForeground(new java.awt.Color(190, 190, 205));
+
+        pnlBusca.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+        pnlBusca.setOpaque(false);
+        txtBusca.setEditable(false);
+        txtBusca.setBackground(new java.awt.Color(250, 250, 250));
+        txtBusca.setForeground(new java.awt.Color(30, 30, 35));
+        txtBusca.setFont(new Font("SansSerif", Font.BOLD, 16));
+        txtBusca.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        txtBusca.setPreferredSize(new Dimension(165, 42));
+        txtBusca.setToolTipText("Toque para usar o teclado virtual");
+
+        estilizarBotao(btnTeclado, new java.awt.Color(103, 100, 246), 110, 42);
+        estilizarBotao(btnLimparBusca, new java.awt.Color(72, 72, 84), 86, 42);
+        estilizarBotao(btnQuestionario, new java.awt.Color(255, 0, 15), 330, 54);
+        estilizarBotao(btnRelatorio, new java.awt.Color(103, 100, 246), 330, 54);
+        estilizarBotao(btnSair, new java.awt.Color(72, 72, 84), 330, 54);
+
+        pnlRodape.setBorder(BorderFactory.createEmptyBorder(8, 15, 18, 15));
+        pnlRodape.setOpaque(false);
+        scrollRobos.getViewport().setBackground(new java.awt.Color(24, 24, 28));
+        scrollRobos.setBorder(BorderFactory.createEmptyBorder(8, 0, 8, 0));
+        pnlListaRobos.setBackground(new java.awt.Color(24, 24, 28));
+        pnlListaRobos.setOpaque(true);
+    }
+
+    protected void estilizarBotao(JButton botao, java.awt.Color cor, int largura, int altura) {
+        botao.setBackground(cor);
+        botao.setForeground(java.awt.Color.WHITE);
+        botao.setFont(new Font("SansSerif", Font.BOLD, altura > 45 ? 18 : 16));
+        botao.setBorder(BorderFactory.createEmptyBorder(10, 14, 10, 14));
+        botao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botao.setFocusPainted(false);
+        botao.setPreferredSize(new Dimension(largura, altura));
     }
 
     protected void abrirTecladoVirtual() {
         FmlTecladoVirtual fmlTecladoVirtual = new FmlTecladoVirtual(txtBusca.getText());
         fmlTecladoVirtual.setLocationRelativeTo(this);
         fmlTecladoVirtual.setVisible(true);
-
         if (fmlTecladoVirtual.isConfirmado()) {
             txtBusca.setText(fmlTecladoVirtual.getTextoFinal());
             atualizarListaRobos(txtBusca.getText());
@@ -177,46 +286,43 @@ public class FmlMenuPrincipal extends JDialog {
     protected void atualizarListaRobos(String filtro) {
         pnlListaRobos.removeAll();
         int quantidadeExibida = 0;
-
         for (int i = 0; i < listaRobos.size(); i++) {
             final int indiceRobo = i;
             final RoboExplorador robo = listaRobos.get(i);
-
             if (deveExibirRobo(robo, filtro)) {
-                JButton btnRobo = new JButton(
-                        "<html><div style='text-align:left;'><b>" + robo.getNome() +
-                        "</b><br/>" + robo.getPlataforma() +
-                        "<br/>Toque para ver detalhes</div></html>");
+                JButton btnRobo = new JButton("<html><div style='text-align:left;'><b>" + robo.getNome()
+                        + "</b><br/><span style='font-size:11px;'>" + robo.getPlataforma()
+                        + "</span><br/><span style='color:#cccccc;'>Toque para ver detalhes</span></div></html>");
                 btnRobo.setHorizontalAlignment(SwingConstants.LEFT);
                 btnRobo.setFocusPainted(false);
-                btnRobo.setBackground(UtilTela.COR_CARTAO);
-                btnRobo.setForeground(UtilTela.COR_TEXTO);
+                btnRobo.setBackground(new java.awt.Color(48, 48, 58));
+                btnRobo.setForeground(new java.awt.Color(245, 245, 245));
                 btnRobo.setFont(new Font("SansSerif", Font.BOLD, 17));
-                btnRobo.setPreferredSize(new Dimension(360, 90));
-                btnRobo.setMaximumSize(new Dimension(360, 90));
-                btnRobo.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
+                btnRobo.setPreferredSize(new Dimension(360, 86));
+                btnRobo.setMinimumSize(new Dimension(360, 86));
+                btnRobo.setMaximumSize(new Dimension(360, 86));
+                btnRobo.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(new java.awt.Color(70, 70, 82)),
+                        BorderFactory.createEmptyBorder(10, 15, 10, 15)));
+                btnRobo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
                 btnRobo.setAlignmentX(Component.CENTER_ALIGNMENT);
-
                 btnRobo.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         abrirDetalhesRobo(robo, indiceRobo);
                     }
                 });
-
                 pnlListaRobos.add(btnRobo);
                 pnlListaRobos.add(Box.createVerticalStrut(10));
                 quantidadeExibida++;
             }
         }
-
         if (quantidadeExibida == 0) {
-            JLabel lblSemResultados = new JLabel("Nenhum robô encontrado com esse filtro.", SwingConstants.CENTER);
-            lblSemResultados.setForeground(UtilTela.COR_TEXTO);
+            JLabel lblSemResultados = new JLabel("Nenhum robo encontrado com esse filtro.", SwingConstants.CENTER);
+            lblSemResultados.setForeground(new java.awt.Color(245, 245, 245));
             lblSemResultados.setAlignmentX(Component.CENTER_ALIGNMENT);
             pnlListaRobos.add(lblSemResultados);
         }
-
         pnlListaRobos.revalidate();
         pnlListaRobos.repaint();
     }
@@ -248,13 +354,27 @@ public class FmlMenuPrincipal extends JDialog {
     }
 
     protected void sairSistema() {
-        int resposta = JOptionPane.showConfirmDialog(this,
-                "Deseja realmente sair do totem?",
-                "Confirmar saída",
-                JOptionPane.YES_NO_OPTION);
-
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente sair do totem?", "Confirmar saida", JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
             dispose();
         }
     }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLimparBusca;
+    private javax.swing.JButton btnQuestionario;
+    private javax.swing.JButton btnRelatorio;
+    private javax.swing.JButton btnSair;
+    private javax.swing.JButton btnTeclado;
+    private javax.swing.JLabel lblInstrucao;
+    private javax.swing.JLabel lblSubtitulo;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JPanel pnlBusca;
+    private javax.swing.JPanel pnlConteudo;
+    private javax.swing.JPanel pnlListaRobos;
+    private javax.swing.JPanel pnlRodape;
+    private javax.swing.JPanel pnlTopo;
+    private javax.swing.JScrollPane scrollRobos;
+    private javax.swing.JTextField txtBusca;
+    // End of variables declaration//GEN-END:variables
+
 }
